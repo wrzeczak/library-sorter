@@ -6,7 +6,7 @@
 
 //------------------------------------------------------------------------------
 
-typedef enum {
+typedef enum { // see Book for explanations
     TITLE,
     AUTHOR,
     CONTRIBUTOR,
@@ -17,33 +17,40 @@ typedef enum {
 } BookField;
 
 typedef struct {
-    char * title;
-    char * author;
-    char * contributor;
-    char * subject;
-    char * status;
-    char * date;
-    char * isbn_s;
+    char * title;           // the title of the work;   "Being and Time"
+    char * author;          // the author(s);           "Martin Heidegger"
+    char * contributor;     // anyone else, not above;  "trans. Macquarrie and Robinson"
+    char * subject;         // general grouping;        "Philosophy; Metaphysics"
+    char * status;          // how much i've read;      "None"
+    char * date;            // abou when i got it;      "2024 December"
+    char * isbn_s;          // ISBN in string form;     "978006157594"
 } Book;
 
-Book ** library;
-unsigned int num_books = 0;
+Book ** library; // global array, modified frequently
+unsigned int num_books = 0; // as above
 
+// currently, collections assume a couple shaky things:
+// 1) they are only of one author (not a terrible assumption, but not the most general)
+// 2) that each title it contains is unique
+// these might have to be rectified in future but for now they are fine (book count ~= 160)
 typedef struct {
-    char ** titles;
-    unsigned int num_titles;
+    char ** titles;             // collections are defined by a list of titles
+    unsigned int num_titles;    // as above
 } Collection;
 
-Collection ** collections;
-unsigned int num_collections = 0;
+Collection ** collections; // global array, modified frequently
+unsigned int num_collections = 0; // as above
 
+// the necessary forward-declarations for main()
 void sort_by_author(Book ** books, unsigned int num_books);
 void add_collection(unsigned int num_titles, ...);
 void fix_collections(Book ** library, unsigned int num_books, Collection ** collections, unsigned int num_collections);
 
+// just copy paste this from the Excel output
 #define EXPECTED_HEADER "TITLE	AUTHOR(s)	\"TRANSLATOR(s), EDITOR(s), etc.\"	SUBJECT	STATUS	DATE	ISBN\n"
 #define EXPECTED_NUMBER_OF_FIELDS 7
 
+// functions that hide necessary stuff in main(); i know i have sinned and i'm sorry
 void handle_arguments_and_read_file_and_some_other_stuff(int argc, char ** argv);
 void print_output_and_cleanup_stuff();
 
@@ -159,6 +166,10 @@ void print_output_and_cleanup_stuff() {
     free(collections);
 }
 
+// make sure the input file matches what we expect
+// returns the header (first line) if it FAILS
+// RETURNS NULL ON SUCCESS
+// i know this is not an idiomatic design decision but unfortunately it does make sense
 char * verify_header(FILE * input_file) {
     static char line[256]; // static because this is only called once
     memset(line, 0, 256);
@@ -170,6 +181,7 @@ char * verify_header(FILE * input_file) {
     } else return NULL;
 }
 
+// debug print stuff
 void print_book(Book book) {
     printf("\"%s\", by %s, %s. In %s, Read: %s, Acquired %s (ISBN: %s)\n", book.title, book.author, book.contributor, book.subject, book.status, book.date, book.isbn_s);
 }
@@ -180,13 +192,17 @@ int alphabetic_priority_c(char a, char b) {
     return 0; // a == b
 }
 
-// remove all spaces, remove "the" or "on", turn all letters lowercase
+// remove all spaces, remove "the," "on," "an," "a," turn all letters lowercase
+// this makes titles just slightly fuzzy which might be useful in future
+// "Being And Time" should equal "Being and Time" => "beingandtime"
 char * sanitize_title(const char * title) {
     static char output_buf[256];
     memset(output_buf, 0, 256);
     unsigned int output_buf_idx = 0;
 
     size_t beginning_offset = 0;
+    // i LOVE macros for eliminating redundant code
+    // this could NEVER go wrong <3
     #define OFFSET(str) if(strncmp(title, str, strlen(str)) == 0) beginning_offset = strlen(str)
 
     OFFSET("The ");
@@ -198,9 +214,9 @@ char * sanitize_title(const char * title) {
 
     for(size_t i = beginning_offset; i < strlen(title); i++) {
         char c = title[i];
-        if(c != ' ') {
-            if((c >= 'A') && (c <= 'Z')) c += 'a' - 'A';
-            if((c >= 'a') && (c <= 'z')) {
+        if(c != ' ') { // exclude spaces
+            if((c >= 'A') && (c <= 'Z')) c += 'a' - 'A'; // decapitalize capitals
+            if((c >= 'a') && (c <= 'z')) { // only include alphabetical characters
                 // append to buf
                 output_buf[output_buf_idx] = c;
                 output_buf_idx++;
@@ -212,7 +228,6 @@ char * sanitize_title(const char * title) {
 }
 
 // -1 if (a before b), 0 if (a == b), 1 if (a after b)
-// really is (char *, char *), but qsort() requires (const void *, const void *)
 int alphabetic_priority_s(const char * _a, const char * _b) {
     char * temp = sanitize_title(_a);
     char * a = malloc(strlen(temp) + 1);
@@ -234,19 +249,21 @@ int alphabetic_priority_s(const char * _a, const char * _b) {
     return 0;
 }
 
+// wrapper for the above so i can use it in qsort()
 int alphabetic_priority_qsort_s(const void * _a, const void * _b) {
     const char * a = *(char **) _a;
     const char * b = *(char **) _b;
     return alphabetic_priority_s(a, b);
 }
 
-// takes 2 Book
+// sorts two books by their titles; qsort-compatible, expects Book **
 int alphabetic_priority_title(const void * _book_a, const void * _book_b) {
     const Book * book_a = *((Book **) _book_a);
     const Book * book_b = *((Book **) _book_b);
     return alphabetic_priority_s(book_a->title, book_b->title);
 }
 
+// as above, but for authors
 int alphabetic_priority_author(const void * _book_a, const void * _book_b) {
     const Book * book_a = *((Book **) _book_a);
     const Book * book_b = *((Book **) _book_b);
@@ -258,6 +275,7 @@ void sort_by_title(Book ** books, unsigned int num_books) {
     qsort(books, num_books, sizeof(Book *), &alphabetic_priority_title);
 }
 
+// python: "if value in values"
 bool string_is_member(char ** values, unsigned int num_values, char * value) {
     for(unsigned int i = 0; i < num_values; i++) {
         if(strncmp(values[i], value, strlen(value)) == 0) return true;
@@ -265,6 +283,9 @@ bool string_is_member(char ** values, unsigned int num_values, char * value) {
     return false;
 }
 
+// turns all capitals into lowercase
+// "Being And Time" -> "being and time"
+// this is NOT sanitize_title()
 char * make_lowercase_string(char * string) {
     static char output_buf[256];
     memset(output_buf, 0, 256);
@@ -282,6 +303,9 @@ char * make_lowercase_string(char * string) {
     return output_buf;
 }
 
+// get the index of a book by one of its values
+// get the index of the book titled "Being and Time":
+// get_idx_by_value(library, num_books, "Being and Time", TITLE);
 int get_idx_by_value(Book ** library, unsigned int num_books, char * value, BookField field) {
     for(unsigned int i = 0; i < num_books; i++) {
         Book b = *(library[i]);
@@ -339,6 +363,11 @@ int get_idx_by_value(Book ** library, unsigned int num_books, char * value, Book
     return -1;
 }
 
+// sorts by author
+// ALSO sorts within authors by title
+// Book A, Author A
+// Book B, Author A
+// Book C, Author B
 void sort_by_author(Book ** books, const unsigned int num_books) {
     // sort alphabetically by author
     qsort(books, num_books, sizeof(Book *), &alphabetic_priority_author);
@@ -422,6 +451,7 @@ void sort_by_author(Book ** books, const unsigned int num_books) {
     // }
 }
 
+// get rid of "" and newlines
 char * sanitize_data(char * value) {
     static char output_buffer[256];
     memset(output_buffer, 0, 256);
@@ -438,6 +468,8 @@ char * sanitize_data(char * value) {
     return output_buffer;
 }
 
+// parse each line of the input file
+// this will not work on the first (header) line
 Book * get_book_from_line(char * line) {
     Book * output = malloc(sizeof(Book));
 
@@ -464,6 +496,7 @@ Book * get_book_from_line(char * line) {
 }
 
 // impure
+// append a collection (...) to the global collections variable
 void add_collection(unsigned int num_titles, ...) {
     if(num_titles < 2) {
         printf("Bad collection at %d. Kill yourself.\n", __LINE__);
@@ -494,7 +527,7 @@ void add_collection(unsigned int num_titles, ...) {
 
 // NOTE: this assumes all the titles are unique; i may need to rework this to include author/isbn information as well
 // if this occurs, i should probably just redo it with isbn since that uniquely identifies books
-// this also assumes collections are single-author, which is their ONLY intended purpose
+// this also assumes collections are single-author, which is their intended purpose (for now...)
 void fix_collections(Book ** library, unsigned int num_books, Collection ** collections, unsigned int num_collections) {
     for(unsigned int i = 0; i < num_collections; i++) {
         Collection c = *(collections[i]);
