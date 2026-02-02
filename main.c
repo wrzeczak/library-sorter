@@ -82,9 +82,8 @@ int main(int argc, char ** argv) {
 char * verify_header(FILE * input_file); 
 Book * get_book_from_line(char * line); // calls malloc()
 void handle_arguments_and_read_file_and_some_other_stuff(int argc, char ** argv) {
-    
     if(argc < 2) {
-        printf("USAGE: ./libsorter <filename>");
+        printf("USAGE: ./sort <input filename> <optional; output filename>");
         exit(1);
     } else {
         input_filename = argv[1];
@@ -94,7 +93,7 @@ void handle_arguments_and_read_file_and_some_other_stuff(int argc, char ** argv)
         output_filename = argv[2];
     }
 
-    printf("Reading from \"%s\".\n", input_filename);
+    if(output_filename != NULL) printf("Reading from \"%s\".\n", input_filename); // no printing if outputting to stdout
     if(output_filename != NULL) printf("Outputting to \"%s.\"\n", output_filename);
 
     FILE * input_file = fopen(input_filename, "r");
@@ -115,7 +114,7 @@ void handle_arguments_and_read_file_and_some_other_stuff(int argc, char ** argv)
 
     fclose(input_file);
 
-    printf("Read %d books from file \"%s\".\n", num_books, input_filename);
+    if(output_filename != NULL) printf("Read %d books from file \"%s\".\n", num_books, input_filename);
 }
 
 void print_output_and_cleanup_stuff() {
@@ -229,12 +228,12 @@ char * sanitize_title(const char * title) {
 
 // -1 if (a before b), 0 if (a == b), 1 if (a after b)
 int alphabetic_priority_s(const char * _a, const char * _b) {
-    char * temp = sanitize_title(_a);
-    char * a = malloc(strlen(temp) + 1);
-    memcpy(a, temp, strlen(temp) + 1);
-    char * b = sanitize_title(_b);
+    char * temp = sanitize_title(_a);    // have to malloc this and make a copy
+    char * a = malloc(strlen(temp) + 1); // because we are dealing with static buffers
+    memcpy(a, temp, strlen(temp) + 1);   // which are nice if you only call once
+    char * b = sanitize_title(_b);       // but not so much if you call twice
 
-    unsigned int smallest_strlen = (strlen(a) < strlen(b)) ? strlen(a) : strlen(b);
+    unsigned int smallest_strlen = (unsigned int) ((strlen(a) < strlen(b)) ? strlen(a) : strlen(b));
 
     for(unsigned int i = 0; i < smallest_strlen; i++) {
         int cmp = alphabetic_priority_c(a[i], b[i]);
@@ -477,6 +476,10 @@ Book * get_book_from_line(char * line) {
     output->title = malloc(strlen(token) + 1);
     memcpy(output->title, token, strlen(token) + 1);
 
+    // MACROS!!! MACROS!!!! YIPPPEEE!!!!!
+    // i love doing these little time saver macros so much
+    // i know some people hate them but macros are genuinely my favorite C feature
+    // they're so useful (and so enticingly pernicious... danger... intrigue...)
     #define GET_FIELD(field) do { \
         token = sanitize_data(strtok(NULL, "\t")); \
         output->field = malloc(strlen(token) + 1); \
@@ -499,12 +502,12 @@ Book * get_book_from_line(char * line) {
 // append a collection (...) to the global collections variable
 void add_collection(unsigned int num_titles, ...) {
     if(num_titles < 2) {
-        printf("Bad collection at %d. Kill yourself.\n", __LINE__);
+        printf("Bad collection at %d. Kill yourself.\n", __LINE__); // will this __LINE__ be in the 500s or at the callsite? doesn't matter. kill yourself.
         exit(-80085);
     }
 
-    va_list args;
-    va_start(args, num_titles);
+    va_list args;               // if macros are my favorite feature then varargs are my second favorite
+    va_start(args, num_titles); // although python does these in an infinitely safer and way better way
 
     Collection * coll = malloc(sizeof(Collection));
     coll->titles = malloc(sizeof(char *));
@@ -554,6 +557,8 @@ void fix_collections(Book ** library, unsigned int num_books, Collection ** coll
             next_author = library[author_start_idx + span]->author;
         }
 
+        // long ass debug printfs because this took a while to figure out
+        // not deleting them in case something big breaks
         // printf("Author \"%s\" has %d works, beginning at (%d).\n", author, span, author_start_idx);
         // for(unsigned int j = 0; j < span; j++) {
         //     printf("\t%d: \"%s\" (%d)\n", j, library[author_start_idx + j]->title, author_start_idx + j);
@@ -638,6 +643,7 @@ void fix_collections(Book ** library, unsigned int num_books, Collection ** coll
         //     library[new_title_idx] = tmp;
         // }
 
+        // how about that variable name!
         Book * collected_titles_in_book_form = malloc(span * sizeof(Book));
 
         // deep copy the data from library in the order listed in the (properly sorted) collected_titles

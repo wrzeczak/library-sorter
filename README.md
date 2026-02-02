@@ -26,4 +26,9 @@ The `input.txt` format is determined by Excel; I export from Excel to tab-delimi
 
 The `output.txt` format is determined by `print_output_and_cleanup_stuff()`. I deliberately squirreled away everything before and after the actual processing of stuff in `main()` into these two (terrible, impure, blah blah blah) functions to make my own maintenance of the program (for the purposes of actually using it) easier. Yes, I could (should) have put all the extra functions and data types and whatnot into a header file, but I also sat down and wrote this in one night, and it does what I want.
 
-If you want any help using it or fitting it to your needs, I might be able and willing to if you email me (`wrzeczak@wrzeczak.net`/`wrzeczak@protonmail.com`) or find me on Discord (`wrzeczak`; much less reliable).
+If you want any help using it or fitting it to your needs, I might be able and willing to if you email me (`wrzeczak@wrzeczak.net`/`wrzeczak@protonmail.com`) or find me on Discord (`wrzeczak`; much less reliable). If I revisit this after creating it, it'll probably to improve its performance, but right now with about 160 books in the collection it runs in no time at all (0.13 seconds is probably way too slow for what I'm actually doing, but for a normal person it doesn't matter at all.)
+```terminal
+real    0m 0.13s
+user    0m 0.00s
+sys     0m 0.04s
+```
