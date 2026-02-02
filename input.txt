@@ -1,0 +1,163 @@
+TITLE	AUTHOR(s)	"TRANSLATOR(s), EDITOR(s), etc."	SUBJECT	STATUS	DATE	ISBN
+Being and Time	"Heidegger, Martin"	trans. Macquarrie and Robinson; fore. Carman	Philosophy; Metaphysics	None	2024 December	978006157594
+The Canterbury Tales	"Chaucer, Geoffrey"	trans. Coghill	Literature; Poetry	None	2025 December	978014042386
+The Idiot	"Dostoevsky, Fyodor"	trans. Myers	Literature; Russian	None	2024	978019953639
+Process and Reality	"Whitehead, Alfred N."	ed. Griffin and Sherburne	Philosophy; Metaphysics	None	2024	9780029345702
+Mere Christianity	"Lewis, C.S."	N/A	Religion; Theology	Partial	2024	9780060652920
+Life is Elsewhere	"Kundera, Milan"	trans. Asher	Literature	None	2025 October	9780060997021
+The Gulag Archipelago (abridged)	"Solzhenitsyn, Aleksandr"	fore. Applebaum	History	Complete	2022 January	9780061253805
+Basic Writings	"Heidegger, Martin"	ed. Krell; fore. Carman	Philosophy	None	2024 December	9780061627019
+The Good Solider Svejk	"Hasek, Jaroslav"	trans. Parrott	Literature	None	2023	9780062835444
+The C Programming Language	Kernighan and Ritchie	N/A	Technical	Complete	2020	9780131103627
+Thus Spoke Zarathustra	"Nietzsche, Friedrich"	trans. Kaufmann	Philosophy	None	2024	9780140047486
+Ways of Seeing	"Berger, John"	N/A	Criticism	Complete	2025	9780140135152
+The Portable Nietzsche	"Nietzsche, Friedrich"	ed. Kaufmann	Philosophy	None	2024 December	9780140150629
+Cadillac Desert; The American West and its Disappearing Water	"Reisner, Marc"	ps. Lawrie Mott	History	Complete	2022	9780140178241
+Paradise Lost	"Milton, John"	ed. Leonard	Literature; Poetry	Partial	2022	9780140424393
+"Either/Or (vols. 1, 2, abridged)"	"Kierkegaard, Soren"	trans. Hannay	Religion; Theology	Partial	2023	9780140445770
+The Symposium	Plato	trans. Gill	Philosophy; Sex	Partial	2024 October	9780140449273
+Republic	Plato	trans. Jowett	Philosophy; Mind	Partial	2023 July	9780140455113
+A Dangerous Place	"Reisner, Marc"	N/A	History	None	2025 August	9780142003831
+On the Shortness of Life	Seneca	trans. Costa	Philosophy; Ethics	Partial	2024 December	9780143036326
+Fear & Trembling	"Kierkegaard, Soren"	trans. Hannay	Religion; Theology	Partial	2023	9780143037576
+Kokoro	"Soseki, Natsume"	trans. McKinney	Literature; Japanese	None	2025 December	9780143106036
+Phaedrus	Plato	trans. Hamilton	Philosophy	Partial	2024 December	9780146001796
+The Roots of Danger; Violent Crime in Global Perspective	"Currie, Elliott"	N/A	Sociology	Partial	2026 January	9780190215231
+The Existence of God	"Swinburne, Richard"	N/A	Religion; Theology	Partial	2024	9780199271689
+The Library of Greek Mythology	Apollodorus	trans. Hard	Religion; Theology	None	2025 December	9780199536320
+On the Genealogy of Morals	"Nietzsche, Friedrich"	trans. Smith	Philosophy; Ethics	Complete	2023	9780199537082
+Thus Spoke Zarathustra	"Nietzsche, Friedrich"	trans. Parkes	Philosophy	None	2024 December	9780199537099
+Confessions	Augustine	trans. Chadwick	Religion; Theology	Complete	2024 August	9780199537822
+The Elementary Forms of Religious Life	"Durkheim, Emile"	trans. Cosman	Religion; Theology	Partial	2026 January	9780199540129
+Writing and Difference	"Derrida, Jacques"	trans. Bass	Philosophy; Structure	None	2025 August	9780226143295
+Modernity on Endless Trial	"Ko?akowski, Leszek"	pub. University of Chicago (various translations)	Philosophy	Partial	2025	9780226450465
+Deconstructive Criticism; An Advanced Introduction	"Leitch, Vincent B."	N/A	Philosophy; Postmodern	Partial	2025 August	9780231054734
+The American Evasion of Philosophy	"West, Cornel"	N/A	Philosophy; Politics	None	2024 December	9780299119645
+"The Reconstruction of Nations; Poland, Ukraine, Lithuania, Belarus, 1569-1999"	"Snyder, Timothy"	N/A	History	Complete	2025 July	9780300105865
+Five Modern No Plays	"Mishima, Yukio"	trans. Keene	Literature; Japanese	Partial	2025 October	9780307473110
+The Precipice; Existential Risk and the Future of Humanity	"Ord, Toby"	N/A	History	None	2024 December	9780316484923
+The Autobiography of Malcolm X	"X, Malcolm"	transc. Haley	Biography	Complete	2021	9780345350688
+The Land of Ulro	"Mi?osz, Czes?aw"	trans. Iribarne	Criticism	Partial	2025 November	9780374519374
+Elements of Semiology	"Barthes, Roland"	trans. Lavers and Smith	Philosophy; Language	Partial	2024 December	9780374521468
+Forbidden Colors	"Mishima, Yukio"	trans. Marks	Literature; Japanese	Complete	2023	9780375705168
+"If Not, Winter"	Sappho	trans. Carson	Literature; Poetry	Complete	2025 August	9780375724510
+Sexual Politics	"Millett, Kate"	N/A	Philosophy; Sex	Partial	2025 August	9780380007754
+Catechism of the Catholic Church	Catholic Church	N/A	Religious Primary	Partial	2024	9780385508190
+The Ego and the Id	"Freud, Sigmund"	trans. Riviere; ed. Strachey; intro. Gay	Philosophy; Mind	Partial	2024	9780393001423
+Beowulf	Beowulf Poet	trans. Heaney	Literature; Poetry	Partial	2025 December	9780393320978
+The Archaeology of Knowledge & The Discourse on Language	"Foucault, Michel"	"trans. Smith, Joseph"	Philosophy; Postmodern	None	2025 August	9780394711068
+Illness as Metaphor	"Sontag, Susan"	N/A	Philosophy; Language	None	2025 August	9780394728440
+The Helping Interview	"Benjamin, Alfred"	N/A	Philosophy; Mind	Partial	2025 August	9780395186048
+Black Like Me	"Griffin, John Howard"	after. Bonazzi	Biography	None	2024 December	9780451234216
+The Federalist Papers	"Hamilton, Madison, Jay"	ed. Rossiter; intro. Kesler	Philosophy; Politics	Partial	2025 November	9780451528816
+The Brothers Karamazov	"Dostoevsky, Fyodor"	trans. Garnett	Literature; Russian	Complete	2023	9780451530608
+The Odyssey	Homer	trans. Palmer	Literature; Poetry	None	2023	9780486406541
+Republic	Plato	trans. Lee; intro. Lane	Philosophy; Mind	Partial	2024 August	9780486411217
+Incidents in the Life of a Slave Girl	"Jacobs, Harriet"	N/A	Biography	Partial	2024 August	9780486419312
+What is Property?	"Proudhon, Pierre-Joseph"	trans. Kelley and Smith	Philosophy; Politics	Partial	2025	9780521405560
+"Time's Echo; The Second World War, The Holocaust, and the Music of Rememberance"	"Eichler, Jeremy"	N/A	History	Partial	2024 October	9780525521716
+The Myth of Sisyphus	"Camus, Albert"	trans. O'Brien	Literature	Partial	2023	9780525564454
+Life for Sale	"Mishima, Yukio"	trans. Dodd	Literature; Japanese	Complete	2025	9780525565147
+Modern European Poetry	Barnstone; Various	ed. Barnstone	Literature; Poetry	Partial	2025 August	9780553127225
+From Socrates to Sartre: The Philosophic Quest	"Lavine, T.Z."	N/A	Philosophy	Partial	2024	9780553251616
+Project Hail Mary	"Weir, Andy"	N/A	Literature	None	2024 December	9780593135228
+Man and His Symbols	"Jung, Carl G.; Various"	ed. Jung	Philosophy; Mind	Partial	2025 August	9780593499993
+Postmodern Ethics	"Bauman, Zygmunt"	N/A	Philosophy; Ethics	Partial	2025 December	9780631186939
+The Philosophy of Redemption	"Mainlander, Philipp"	trans. Romuss	Philosophy; Metaphysics	Partial	2025	9780645498073
+The Enchantments of Mammon; How Capitalism Became the Religion of Modernity	"McCarraher, Eugene"	N/A	Religion; Theology	None	2023	9780674271098
+A Brief History of Equality	"Piketty, Thomas"	trans. Rendall	Philosophy; Ethics	None	2024 December	9780674273559
+Nietzsche: Life as Literature	"Nehamas, Alexander"	N/A	Philosophy	None	2024 December	9780674624262
+The Stranger	"Camus, Albert"	trans. Ward	Literature	Complete	2023	9780679720201
+The Plague	"Camus, Albert"	trans. Gilbert	Literature	None	2023	9780679720218
+Madness & Civilization	"Foucault, Michel"	trans. Howard	Philosophy; Postmodern	Partial	2024	9780679721109
+Runaway Horses	"Mishima, Yukio"	trans. Gallagher	Literature; Japanese	Complete	2024	9780679722403
+Spring Snow	"Mishima, Yukio"	trans. Gallagher	Literature; Japanese	Complete	2024	9780679722410
+The Temple of Dawn	"Mishima, Yukio"	trans. Saunders and Seigle	Literature; Japanese	Partial	2025	9780679722427
+The Decay of the Angel	"Mishima, Yukio"	trans. Seidensticker	Literature; Japanese	None	2025	9780679722432
+The History of Sexuality (vol. 1)	"Foucault, Michel"	trans. Hurley	Philosophy; Postmodern	None	2024	9780679724698
+The Rebel	"Camus, Albert"	trans. Bower	Literature	None	2023	9780679733843
+Demons	"Dostoevsky, Fyodor"	trans. Pevear and Volokhonsky	Literature; Russian	None	2025	9780679734512
+The Sailor who Fell From Grace with the Sea	"Mishima, Yukio"	trans. Nathan	Literature; Japanese	Complete	2024 December	9780679750154
+Discipline & Punish	"Foucault, Michel"	trans. Sheridan	Philosophy; Postmodern	Partial	2024	9780679752554
+The Sound of Waves	"Mishima, Yukio"	trans. Weatherby	Literature; Japanese	Complete	2025 October	9780679752684
+The Temple of the Golden Pavilion	"Mishima, Yukio"	trans. Morris	Literature; Japanese	None	2025 December	9780679752707
+Basic Writings of Nietzsche	"Nietzsche, Friedrich"	ed. Kaufmann; intro. Gay	Philosophy	None	2024 December	9780679783393
+Basic Writings of Nietzsche	"Nietzsche, Friedrich"	ed. Kaufmann	Philosophy	Partial	2022	9780679783398
+Close Range; Wyoming Stories 1	"Proulx, Annie"	N/A	Literature	Partial	2025 August	9780684852225
+Either/Or (vol. 1)	"Kierkegaard, Soren"	"trans. Swenson(s); rev. Johnson, H.A."	Religion; Theology	Partial	2025 October	9780691019762
+On Bullshit	"Frankfurt, Harry G."	N/A	Philosophy; Language	None	2023	9780691122946
+Academic Writing as if Readers Matter	"Cassuto, Leonard"	N/A	Criticism	None	2024 November	9780691195797
+Eros the Bittersweet	"Carson, Anne"	N/A	Criticism	Complete	2025 August	9780691247939
+Pan Tadeusz	"Mickiewicz, Adam"	trans. Mackenzie	Literature; Polish	None	2023	9780781800334
+The Poetics of Prose	"Todorov, Tzvetan"	trans. Howard; fore. Culler	Philosophy; Structure	Partial	2025 August	9780801491657
+Waiting for Godot	"Beckett, Samuel"	N/A	Literature; Play	Partial	2023	9780802144423
+Pornografia	"Gombrowicz, Witold"	trans. Borchardt; fore. Lipsyte	Literature; Polish	Partial	2024	9780802145130
+The Jefferson Bible	"Jefferson, Thomas"	intro. Church; after. Pelikan	Religious Primary	Partial	2025	9780807077011
+A Barthes Reader	"Barthes, Roland"	ed. Sontag	Philosophy	None	2025 August	9780809013940
+Confessions of a Mask	"Mishima, Yukio"	trans. Weatherby	Literature; Japanese	None	2025 November	9780811201186
+Nausea	"Sartre, Jean-Paul"	trans. Alexander	Literature	None	2025 August	9780811201880
+The End of Days	"Erpenbeck, Jenny"	trans. Bernofsky	Literature	Complete 	2026 January	9780811225137
+The Essential Writings of Christian Mysticism	McGinn; Various	ed. McGinn	Religion; Theology	Partial	2025 October	9780812974218
+The Life and Death of Yukio Mishima	"Scott-Stokes, Henry"	N/A	Biography	Complete	2025 November	9780815410744
+The Postmodern Condition: A Report on Knowledge	"Lyotard, Jean-Francois"	trans. Bennington and Massumi; fore. Jameson	Philosophy; Postmodern	Partial	2024 December	9780816611737
+Foucault	"Deleuze, Gilles"	fore. Bove	Philosophy; Postmodern	None	2024	9780816616752
+Byzantine Theology; Historical Trends & Doctrinal Themes	"Meyendorff, John"	N/A	Religion; Theology	Partial	2024	9780823209675
+The Ethical Dimensions of Marxist Thought	"West, Cornel"	N/A	Philosophy; Ethics	None	2024 December	9780853458180
+Discourse on Metaphysics and Other Essays (+ others)	"Leibniz, G.W."	trans. Garber and Ariew	Philosophy; Metaphysics	Partial	2025 August	9780872201323
+Laches and Charmides	Plato	trans. Sprague	Philosophy; Ethics	Partial	2025 August	9780872201347
+Republic	Plato	trans. Grube; rev. Reeve	Philosophy; Mind	Partial	2025 August	9780872201361
+Meditations on First Philosophy	"Descartes, Rene"	trans. Cress	Philosophy; Metaphysics	Complete	2025 August	9780872201927
+An Essay Concerning Human Understanding (abridged)	"Locke, John"	ed. Winkler	Philosophy; Mind	Partial	2025 August	9780872202160
+An Enquiry Concerning Human Understanding	"Hume, David"	ed. Steinberg	Philosophy; Mind	Partial	2025 August	9780872202290
+Prolegomena to Any Future Metaphysics	"Kant, Immanuel"	trans. Carus; rev. Ellington	Philosophy; Metaphysics	None	2024	9780872205932
+"Euthyphro, Apology, Crito, Meno, Phaedo"	Plato	trans. Grube; rev. Cooper	Philosophy	Partial	2024 August	9780872206335
+On Being and Essence	"Aquinas, Thomas"	trans. Maurer	Religion; Theology	Partial	2025	9780888442505
+Three Dialogues between Hylas and Philonous	"Berkeley, George"	ed. Adams	Philosophy; Mind	Complete	2025 August	9780915144617
+Vernacular Poetics in the Middle Ages	Ebin; Various	"ed. Ebin, Lois"	Criticism	Partial	2025	9780918720192
+On the Problem of Empathy	"Stein, Edith"	"trans. Stein, Waltraut"	Philosophy; Ethics	Partial	2025 July	9780935216110
+Orthodox Dogmatic Theology	"Pomazansky, Michael"	trans. Rose	Religion; Theology	Partial	2024	9780938635697
+Psycho-Academic Holocaust; The Special Education & ADHD Wars Against Black Boys	"Johnson, Umar"	N/A	History	None	2025	9780988711600
+Socialist Reconstruction; A Better Future for the United States	Party for Socialism and Liberation	N/A	Philosophy; Politics	None	2023	9780991030392
+Industrial Society and Its Future	"Kaczynski, Theodore John"	N/A	Philosophy; Politics	Complete	2023	9780994790149
+Studying Religion; An Introduction	"McCutcheon, Russel T."	N/A	Religion; Textbook	None	2026 January	9781032469119
+Nicomachean Ethics	Aristotle	trans. Crisp	Philosophy	Partial	2025 August	9781107612235
+Ethics; Proved in Geometrical Order	"Spinoza, Baruch"	trans. Silverthorne and Kisner; ed. Kisner	Philosophy; Ethics	Partial	2025 August	9781107655638
+Invisible Women; Data Bias in a World Designed for Men	"Criado-Perez, Caroline"	N/A	Philosophy; Poltics	Partial	2025 December	9781419735219
+Narratology; Introduction to the Theory of Narrative	"Bal, Mieke"	trans. Boheemen	Criticism	None	2026 January	9781442628342
+Wittgenstein in Cambridge; Letters and Documents 1911-1951	"Wittgenstein, Ludwig"	"ed. McGuinness, Brian"	Biography	None	2024 December	9781444350890
+Dying for Ideas; The Dangerous Lives of Philosophers	"Bradatan, Costica"	N/A	History	None	2024 December	9781472529718
+Elements of Theology	Proclus	trans. Taylor	Religion; Theology	Partial	2022	9781546304630
+Xenia	"Dragomoschenko, Arkadii"	trans. Hejinian and Balashova	Literature; Poetry	None	2025 August	9781557131072
+The Polish Complex	"Konwicki, Tadeusz"	trans. Lourie	Literature; Polish	Partial	2024	9781564782014
+White Nights	"Dostoevsky, Fyodor"	trans. Garnett	Literature; Russian	Complete	2023	9781676885634
+Woman Running in the Mountains	"Tsushima, Yuko"	trans. Harcourt; intro. Groff	Literature; Japanese	Complete	2025 December	9781681375977
+Exquisite Nothingness; The Novels of Yukio Mishima	"Vernon, David"	N/A	Criticism	Partial	2025 September	9781739136130
+The Power of the Powerless	"Havel, Vaclav"	trans. Wilson; intro. Snyder	Philosophy; Politics	Partial	2025 November	9781784875046
+Religions of the World	Smith and Ramey	N/A	Religion; Textbook	Partial	2025 August	9781800503762
+Nihilism; The Root of the Revolution of the Modern Age	"Rose, Seraphim"	N/A	Religion; Theology	Partial	2024	9781887904063
+Marriage and Virginity according to St. John Chrysostom	"Trenham, Josiah B."	N/A	Religion; Theology	None	2024	9781887904308
+Rock and Sand	"Trenham, Josiah B."	N/A	Religion; Theology	Partial	2024	9781939028501
+The Unique and Its Property	"Stirner, Max"	"trans. Landstreicher, Wolfi"	Philosophy	Partial	2025 December	9781943687909
+"Symphony no. 13, ""Babi Yar"" (Score)"	"Shostakovich, Dmitri"	N/A	Score	Partial	2023	9784118918136
+Sun and Steel	"Mishima, Yukio"	trans. Stewart	Literature; Japanese	None	2025 December	9786159424645
+Death in Venice	"Mann, Thomas"	trans. Burke	Literature	None	2026 January	9788808327931
+The Acting Person	"Wojty?a, Karol"	"trans. Potocki; ed, Tymieniecka"	Religion; Theology	Partial	2023	9789027709858
+God Is Red; A Native View of Religion	"Deloria, Vine"	N/A	Religion; Theology	None	2022	97815559149181
+The Soul After Death	"Rose, Seraphim"	N/A	Religion; Theology	None	2024	978093863514X
+Orthodoxy and the Religion of the Future	"Rose, Seraphim"	N/A	Religion; Theology	Partial	2024	978188790400X
+Holy Bible; New Testament with Psalms & Proverbs (KJV)	Bible	pub. Thomas Nelson	Religious Primary	Partial	2025 November	N/A
+The Orthodox Study Bible (OSB/NKJV)	Bible	ed. St. Athanasius Academy; pub. Thomas Nelson	Religious Primary	Partial	2024	N/A
+Thongor and the Wizard of Lemuria	"Carter, Lin"	N/A	Literature	None	2024 July	N/A
+St. Augustine's Philosophy of Beauty	"Chapman, Emmanuel"	N/A	Religion; Theology	Partial	2025 October	N/A
+The Phenomenon of Man	"de Chardin, Teilhard"	intro. Huxley	Religion; Theology	Partial	2024	N/A
+Discourse on Method	"Descartes, Rene"	trans. Vietch	Philosophy; Metaphysics	Partial	2024	N/A
+"Death to the World (nos. 2, 6)"	DTTW	N/A	Religion; Theology	Complete	2024	N/A
+A History of Philosophy	"Fuller, B.A.G."	N/A	Philosophy	Partial	2025 October	N/A
+"Language, Thought, and Culture"	Henle; Various	ed. Henle	Philosophy	Partial	2024 December	N/A
+Without Guilt and Justice; From Decidophobia to Autonomy	"Kaufmann, Walter"	N/A	Philosophy; Ethics	None	2024 December	N/A
+On Authority and Revelation	"Kierkegaard, Soren"	trans. Lowrie; intro. Sontag	Religion; Theology	Partial	2025 October	N/A
+The Book of Mormon; Another Testament of Jesus Christ	Mormon	"trans. Smith, Joseph"	Religious Primary	Partial	2023	N/A
+The First Circle	"Solzhenitsyn, Aleksandr"	trans. Whitney	Literature; Russian	Partial	2024	N/A
+Christianity and the State	"Temple, William"	N/A	Religion; Theology	Partial	2023	N/A
+Four Essays on Philosophy	"Tse-Tung, Mao"	pub. Foreign Languages Press (China)	Philosophy	None	2025 August	N/A
+The Blue and Brown Books	"Wittgenstein, Ludwig"	N/A	Philosophy; Language	Partial	2024 December	N/A
