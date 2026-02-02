@@ -13,14 +13,10 @@ This program can do everything I need. I'm putting it on Github for my future us
 
 ### Usage
 
-First, build the build system:
 ```terminal
-> gcc -o nob nob.c
+> gcc -o sort main.c
 ```
-Then, build the project:
-```terminal
-> ./nob build
-```
+
 Then, run it on some data:
 ```terminal
 > ./sort input.txt output.txt
