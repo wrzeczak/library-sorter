@@ -69,8 +69,8 @@
  68: Without Guilt and Justice; From Decidophobia to Autonomy                        Kaufmann, Walter
  69: The C Programming Language                                                      Kernighan and Ritchie
  70: On Authority and Revelation                                                     Kierkegaard, Soren
- 71: Either/Or (vol. 1)                                                              Kierkegaard, Soren
- 72: Either/Or (vols. 1, 2, abridged)                                                Kierkegaard, Soren
+ 71: Either/Or (vols. 1, 2, abridged)                                                Kierkegaard, Soren
+ 72: Either/Or (vol. 1)                                                              Kierkegaard, Soren
  73: Fear & Trembling                                                                Kierkegaard, Soren
  74: Modernity on Endless Trial                                                      Ko?akowski, Leszek
  75: The Polish Complex                                                              Konwicki, Tadeusz
@@ -125,38 +125,39 @@
 124: Elements of Theology                                                            Proclus
 125: What is Property?                                                               Proudhon, Pierre-Joseph
 126: Close Range; Wyoming Stories 1                                                  Proulx, Annie
-127: Cadillac Desert; The American West and its Disappearing Water                   Reisner, Marc
-128: A Dangerous Place                                                               Reisner, Marc
-129: Nihilism; The Root of the Revolution of the Modern Age                          Rose, Seraphim
-130: Orthodoxy and the Religion of the Future                                        Rose, Seraphim
-131: The Soul After Death                                                            Rose, Seraphim
-132: If Not, Winter                                                                  Sappho
-133: Nausea                                                                          Sartre, Jean-Paul
-134: The Life and Death of Yukio Mishima                                             Scott-Stokes, Henry
-135: On the Shortness of Life                                                        Seneca
-136: Symphony no. 13, Babi Yar (Score)                                               Shostakovich, Dmitri
-137: Religions of the World                                                          Smith and Ramey
-138: The Reconstruction of Nations; Poland, Ukraine, Lithuania, Belarus, 1569-1999   Snyder, Timothy
-139: The First Circle                                                                Solzhenitsyn, Aleksandr
-140: The Gulag Archipelago (abridged)                                                Solzhenitsyn, Aleksandr
-141: Illness as Metaphor                                                             Sontag, Susan
-142: Kokoro                                                                          Soseki, Natsume
-143: Ethics; Proved in Geometrical Order                                             Spinoza, Baruch
-144: On the Problem of Empathy                                                       Stein, Edith
-145: The Unique and Its Property                                                     Stirner, Max
-146: The Existence of God                                                            Swinburne, Richard
-147: Christianity and the State                                                      Temple, William
-148: The Poetics of Prose                                                            Todorov, Tzvetan
-149: Marriage and Virginity according to St. John Chrysostom                         Trenham, Josiah B.
-150: Rock and Sand                                                                   Trenham, Josiah B.
-151: Four Essays on Philosophy                                                       Tse-Tung, Mao
-152: Woman Running in the Mountains                                                  Tsushima, Yuko
-153: Exquisite Nothingness; The Novels of Yukio Mishima                              Vernon, David
-154: Project Hail Mary                                                               Weir, Andy
-155: The American Evasion of Philosophy                                              West, Cornel
-156: The Ethical Dimensions of Marxist Thought                                       West, Cornel
-157: Process and Reality                                                             Whitehead, Alfred N.
-158: The Blue and Brown Books                                                        Wittgenstein, Ludwig
-159: Wittgenstein in Cambridge; Letters and Documents 1911-1951                      Wittgenstein, Ludwig
-160: The Acting Person                                                               Wojty?a, Karol
-161: The Autobiography of Malcolm X                                                  X, Malcolm
+127: Violence & Society                                                              Ray, Larry
+128: Cadillac Desert; The American West and its Disappearing Water                   Reisner, Marc
+129: A Dangerous Place                                                               Reisner, Marc
+130: Nihilism; The Root of the Revolution of the Modern Age                          Rose, Seraphim
+131: Orthodoxy and the Religion of the Future                                        Rose, Seraphim
+132: The Soul After Death                                                            Rose, Seraphim
+133: If Not, Winter                                                                  Sappho
+134: Nausea                                                                          Sartre, Jean-Paul
+135: The Life and Death of Yukio Mishima                                             Scott-Stokes, Henry
+136: On the Shortness of Life                                                        Seneca
+137: Symphony no. 13, Babi Yar (Score)                                               Shostakovich, Dmitri
+138: Religions of the World                                                          Smith and Ramey
+139: The Reconstruction of Nations; Poland, Ukraine, Lithuania, Belarus, 1569-1999   Snyder, Timothy
+140: The First Circle                                                                Solzhenitsyn, Aleksandr
+141: The Gulag Archipelago (abridged)                                                Solzhenitsyn, Aleksandr
+142: Illness as Metaphor                                                             Sontag, Susan
+143: Kokoro                                                                          Soseki, Natsume
+144: Ethics; Proved in Geometrical Order                                             Spinoza, Baruch
+145: On the Problem of Empathy                                                       Stein, Edith
+146: The Unique and Its Property                                                     Stirner, Max
+147: The Existence of God                                                            Swinburne, Richard
+148: Christianity and the State                                                      Temple, William
+149: The Poetics of Prose                                                            Todorov, Tzvetan
+150: Marriage and Virginity according to St. John Chrysostom                         Trenham, Josiah B.
+151: Rock and Sand                                                                   Trenham, Josiah B.
+152: Four Essays on Philosophy                                                       Tse-Tung, Mao
+153: Woman Running in the Mountains                                                  Tsushima, Yuko
+154: Exquisite Nothingness; The Novels of Yukio Mishima                              Vernon, David
+155: Project Hail Mary                                                               Weir, Andy
+156: The American Evasion of Philosophy                                              West, Cornel
+157: The Ethical Dimensions of Marxist Thought                                       West, Cornel
+158: Process and Reality                                                             Whitehead, Alfred N.
+159: The Blue and Brown Books                                                        Wittgenstein, Ludwig
+160: Wittgenstein in Cambridge; Letters and Documents 1911-1951                      Wittgenstein, Ludwig
+161: The Acting Person                                                               Wojty?a, Karol
+162: The Autobiography of Malcolm X                                                  X, Malcolm

@@ -132,8 +132,17 @@ void print_output_and_cleanup_stuff() {
         }
     } else {
         FILE * output_file = fopen(output_filename, "w");
-        for(unsigned int i = 0; i < num_books; i++) {
-            fprintf(output_file, "%3d: %-*s %s\n", i, longest_title_length, library[i]->title, library[i]->author);
+        size_t output_filename_len = strlen(output_filename);
+        if(strncmp(".html", output_filename + (output_filename_len - 5), strlen(".html")) == 0) {
+            // fprintf(output_file, "This is an HTML file!\n");
+            fprintf(output_file, "<table>\n\t<tr>\n\t\t<th>NUMBER</th>\n\t\t<th>TITLE</th>\n\t\t<th>AUTHOR</th>\n\t</tr>\n");
+            for(unsigned int i = 0; i < num_books; i++) {
+                fprintf(output_file, "\t<tr>\n\t\t<td>%d</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t</tr>\n", i + 1, library[i]->title, library[i]->author);
+            }
+        } else {
+            for(unsigned int i = 0; i < num_books; i++) {
+                fprintf(output_file, "%3d: %-*s %s\n", i + 1, longest_title_length, library[i]->title, library[i]->author);
+            }
         }
     }
 
