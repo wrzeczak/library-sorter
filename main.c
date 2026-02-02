@@ -135,6 +135,7 @@ void print_output_and_cleanup_stuff() {
         size_t output_filename_len = strlen(output_filename);
         if(strncmp(".html", output_filename + (output_filename_len - 5), strlen(".html")) == 0) {
             // fprintf(output_file, "This is an HTML file!\n");
+            fprintf(output_file, "<style>\n\tbody {\n\t\tcolor: white;\n\t\tbackground-color: #222;\n\t}\n</style>\n\n");
             fprintf(output_file, "<table>\n\t<tr>\n\t\t<th>NUMBER</th>\n\t\t<th>TITLE</th>\n\t\t<th>AUTHOR</th>\n\t</tr>\n");
             for(unsigned int i = 0; i < num_books; i++) {
                 fprintf(output_file, "\t<tr>\n\t\t<td>%d</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t</tr>\n", i + 1, library[i]->title, library[i]->author);
