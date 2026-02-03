@@ -468,6 +468,13 @@ int alphabetic_priority_s(const char * _a, const char * _b) {
     return 0;
 }
 
+// wrapper for the above so i can use it in qsort()
+int alphabetic_priority_qsort_s(const void * _a, const void * _b) {
+    const char * a = *(char **) _a;
+    const char * b = *(char **) _b;
+    return alphabetic_priority_s(a, b);
+}
+
 int alphabetic_priority_c(char a, char b) {
     if(a < b) return -1;
     if(a > b) return 1;
@@ -534,6 +541,27 @@ bool string_is_member(char ** values, unsigned int num_values, char * value) {
     }
     return false;
 }
+
+// turns all capitals into lowercase
+// "Being And Time" -> "being and time"
+// this is NOT sanitize_title()
+char * make_lowercase_string(const char * string) {
+    static char output_buf[256];
+    memset(output_buf, 0, 256);
+    unsigned int output_buf_idx = 0;
+
+    for(size_t i = 0; i < strlen(string); i++) {
+        char c = string[i];
+        if((c >= 'A') && (c <= 'Z')) c += 'a' - 'A';
+
+        // append to buf
+        output_buf[output_buf_idx] = c;
+        output_buf_idx++;
+    }
+
+    return output_buf;
+}
+
 
 int get_idx_by_title(Library * library, const char * title) {
     char * comp = malloc(strlen(title) + 1);
@@ -659,31 +687,4 @@ int get_idx_by_isbn_s(Library * library, const char * isbn_s) {
 
     free(comp);
     return -1;
-}
-
-// wrapper for the above so i can use it in qsort()
-int alphabetic_priority_qsort_s(const void * _a, const void * _b) {
-    const char * a = *(char **) _a;
-    const char * b = *(char **) _b;
-    return alphabetic_priority_s(a, b);
-}
-
-// turns all capitals into lowercase
-// "Being And Time" -> "being and time"
-// this is NOT sanitize_title()
-char * make_lowercase_string(const char * string) {
-    static char output_buf[256];
-    memset(output_buf, 0, 256);
-    unsigned int output_buf_idx = 0;
-
-    for(size_t i = 0; i < strlen(string); i++) {
-        char c = string[i];
-        if((c >= 'A') && (c <= 'Z')) c += 'a' - 'A';
-
-        // append to buf
-        output_buf[output_buf_idx] = c;
-        output_buf_idx++;
-    }
-
-    return output_buf;
 }
