@@ -72,8 +72,6 @@ const book_field_getter get_by[] = {
     [ISBN_S] = get_idx_by_isbn_s,
 };
 
-//----------------------------
-
 char * verify_header(FILE * input_file);
 Book * get_book_from_line(const char * line);
 int alphabetic_priority_author(const void * _book_a, const void * _book_b);
@@ -138,6 +136,8 @@ struct open_files_ret_t open_files(struct parse_args_ret_t args) {
     return output;
 }
 
+//----------------------------
+
 Library parse_library(FILE * input_file) {
     static Library output = { 0 };
     output.books_capacity = 2;
@@ -167,6 +167,8 @@ Library parse_library(FILE * input_file) {
     
     return output;
 }
+
+//----------------------------
 
 void sort_by_author(Library * library) {
     // sort alphabetically by author
@@ -216,6 +218,8 @@ void sort_by_author(Library * library) {
     }
 }
 
+//----------------------------
+
 void add_collection(Library * library, unsigned int num_titles, ...) {
     if(num_titles < 2) {
         printf("Bad collection at %d. Kill yourself.\n", __LINE__); // will this __LINE__ be in the 500s or at the callsite? doesn't matter. kill yourself.
@@ -250,6 +254,8 @@ void add_collection(Library * library, unsigned int num_titles, ...) {
     library->collections = realloc(library->collections, library->num_collections * sizeof(Collection *));
     library->collections[library->num_collections - 1] = coll;
 }
+
+//----------------------------
 
 void apply_collections(Library * library) {
     unsigned int num_collections = library->num_collections;
@@ -340,6 +346,8 @@ void apply_collections(Library * library) {
         free(collected_titles_in_book_form);
     }
 }
+
+//----------------------------
 
 void do_output(Library library, FILE * output_file, OutputFormat output_format) {
     const char * txt_format_str = "%3d: %-*s %s\n";
