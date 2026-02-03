@@ -109,8 +109,6 @@ Library parse_library(FILE * input_file) {
     static Library output = { 0 };
     output.books_capacity = 2;
     output.num_books = 0;
-    output.collections_capacity = 2;
-    output.num_collections = 0;
 
     char * header_line = verify_header(input_file); // does not rewind()
 
@@ -158,24 +156,23 @@ const book_field_getter get_by[] = {
 };
 
 int alphabetic_priority_author(const void * _book_a, const void * _book_b);
+int alphabetic_priority_title(const void * _book_a, const void * _book_b);
 int alphabetic_priority_qsort_s(const void * _a, const void * _b);
 bool string_is_member(char ** values, unsigned int num_values, char * value);
 int get_idx_by_value(Book ** library, unsigned int num_books, char * value, BookField field);
 void sort_by_author(Library * library) {
     // sort alphabetically by author
-    Book ** books = library->books;
-    unsigned int num_books = library->num_books;
+    qsort(library->books, library->num_books, sizeof(Book *), &alphabetic_priority_author);
 
-    qsort(books, num_books, sizeof(Book *), &alphabetic_priority_author);
-
-    char * authors_multiple[num_books];
+    // get every author with multiple entries
+    char * authors_multiple[library->num_books];
     unsigned int am_idx = 0;
 
     // search for authors with multiple entries; only works if they are sorted by author name
     char * last_author = NULL;
-    for(unsigned int i = 1; i < num_books; i++) {
-        last_author = books[i - 1]->author;
-        if(strncmp(last_author, books[i]->author, strlen(last_author)) == 0) {
+    for(unsigned int i = 1; i < library->num_books; i++) {
+        last_author = library->books[i - 1]->author;
+        if(strncmp(last_author, library->books[i]->author, strlen(last_author)) == 0) {
             if(!string_is_member(authors_multiple, am_idx, last_author)) {
                 authors_multiple[am_idx] = last_author;
                 am_idx++;
@@ -183,6 +180,7 @@ void sort_by_author(Library * library) {
         }
     }
 
+    // maybe i could do this in one loop, but i'll do it in two for the sake of code simplicity
     unsigned int author_spans[am_idx];
     unsigned int author_begins[am_idx];
 
@@ -191,64 +189,28 @@ void sort_by_author(Library * library) {
         char * author = authors_multiple[i];
         unsigned int start_idx = get_by[AUTHOR](library, author); // only works if sorted by author AND if get_idx_by_value() returns the first instance of value
 
-        unsigned int j = 1;
-        char * next_author = books[start_idx + j]->author;
-        while(strncmp(next_author, author, strlen(author)) == 0) {
-            j++;
-            next_author = books[start_idx + j]->author;
+        unsigned int author_count = 1;
+        char * next_author = library->books[start_idx + author_count]->author;
+        while(((start_idx + author_count) < library->num_books)
+            && (strncmp(next_author, author, strlen(author)) == 0)) {
+            author_count++;
+            next_author = library->books[start_idx + author_count]->author;
         }
 
-        author_begins[i] = start_idx;
-        author_spans[i] = j;
+        // now, get all the books of that author
+        Book * author_books[author_count];
+
+        memcpy(author_books, library->books + (unsigned char) start_idx, author_count * sizeof(Book *));
+        qsort(author_books, author_count, sizeof(Book *), &alphabetic_priority_title);
+
+        // sorted, now copy
+        memcpy(library->books + (unsigned char) start_idx, author_books, author_count * sizeof(Book *));
     }
-
-    // printf("Found %d authors with multiple publications.\n", am_idx);
-
-    // for(unsigned int i = 0; i < am_idx; i++) {
-    //     printf("%d: Author \"%s\" has %d publications:\n", i, authors_multiple[i], author_spans[i]);
-    //     for(unsigned int j = 0; j < author_spans[i]; j++) {
-    //         printf("\t\"%s\".\n", books[author_begins[i] + j]->title);
-    //     }
-    // }
-
-    // extract the titles and sort them separately
-    // then, modify the values in-place
-    for(unsigned int i = 0; i < am_idx; i++) {
-        unsigned int start_idx = author_begins[i];
-        unsigned int num_titles = author_spans[i];
-        char * title_buf[author_spans[i]];
-
-        for(unsigned int j = start_idx; j < (start_idx + num_titles); j++) {
-            title_buf[j - start_idx] = books[j]->title;
-        }
-
-        qsort(title_buf, num_titles, sizeof(char *), &alphabetic_priority_qsort_s);
-
-        for(unsigned int j = 0; j < num_titles; j++) {
-            char * title = title_buf[j];
-            unsigned int current_title_idx = get_by[TITLE](library, title);
-            unsigned int new_title_idx = start_idx + j;
-
-            Book * tmp = books[current_title_idx];
-            books[current_title_idx] = books[new_title_idx];
-            books[new_title_idx] = tmp;
-        }
-    }
-
-    // should be done?
-
-    // printf("Found %d authors with multiple publications.\n", am_idx);
-
-    // for(unsigned int i = 0; i < am_idx; i++) {
-    //     printf("%d: Author \"%s\" has %d publications:\n", i, authors_multiple[i], author_spans[i]);
-    //     for(unsigned int j = 0; j < author_spans[i]; j++) {
-    //         printf("\t\"%s\".\n", books[author_begins[i] + j]->title);
-    //     }
-    // }
 }
 
 void do_output(Library library, FILE * output_file, OutputFormat output_format) {
     const char * txt_format_str = "%3d: %-*s %s\n";
+    const char * html_preamble = "<style>\n\tbody {\n\t\tcolor: white;\n\t\tbackground-color: #222;\n\t}\n</style>\n\n<table style=\"width: 100%%;\">\n\t<tr>\n\t\t<th>NUMBER</th>\n\t\t<th>TITLE</th>\n\t\t<th>AUTHOR</th>\n\t</tr>\n";
     const char * html_format_str = "\t<tr>\n\t\t<td>%d</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t</tr>\n";
 
     size_t longest_title_length = 0;
@@ -273,8 +235,7 @@ void do_output(Library library, FILE * output_file, OutputFormat output_format) 
             break;
         }
         case OUTPUT_HTML: {
-            fprintf(output_file, "<style>\n\tbody {\n\t\tcolor: white;\n\t\tbackground-color: #222;\n\t}\n</style>\n\n");
-            fprintf(output_file, "<table>\n\t<tr>\n\t\t<th>NUMBER</th>\n\t\t<th>TITLE</th>\n\t\t<th>AUTHOR</th>\n\t</tr>\n");
+            fprintf(output_file, html_preamble);
             for(unsigned int i = 0; i < library.num_books; i++) {
                 fprintf(output_file, html_format_str, i + 1, library.books[i]->title, library.books[i]->author);
             }
@@ -500,6 +461,12 @@ int alphabetic_priority_author(const void * _book_a, const void * _book_b) {
     const Book * book_a = *((Book **) _book_a);
     const Book * book_b = *((Book **) _book_b);
     return alphabetic_priority_s(book_a->author, book_b->author);
+}
+
+int alphabetic_priority_title(const void * _book_a, const void * _book_b) {
+    const Book * book_a = *((Book **) _book_a);
+    const Book * book_b = *((Book **) _book_b);
+    return alphabetic_priority_s(book_a->title, book_b->title);
 }
 
 char * sanitize_title(const char * title);
