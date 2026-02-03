@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdbool.h>
+#include <assert.h>
 
 // just copy paste this from the Excel output
 #define EXPECTED_HEADER "TITLE	AUTHOR(s)	\"TRANSLATOR(s), EDITOR(s), etc.\"	SUBJECT	STATUS	DATE	ISBN\n"
@@ -136,6 +137,25 @@ Library parse_library(FILE * input_file) {
     return output;
 }
 
+typedef int (*book_field_getter)(Library *, const char *);
+
+int get_idx_by_title(Library * library, const char * title);
+int get_idx_by_author(Library * library, const char * author);
+int get_idx_by_contributor(Library * library, const char * contributor);
+int get_idx_by_subject(Library * library, const char * subject);
+int get_idx_by_status(Library * library, const char * status);
+int get_idx_by_date(Library * library, const char * date);
+int get_idx_by_isbn_s(Library * library, const char * isbn_s);
+
+const book_field_getter get_by[] = {
+    [TITLE] = get_idx_by_title,
+    [AUTHOR] = get_idx_by_author,
+    [CONTRIBUTOR] = get_idx_by_contributor,
+    [SUBJECT] = get_idx_by_subject,
+    [STATUS] = get_idx_by_status,
+    [DATE] = get_idx_by_date,
+    [ISBN_S] = get_idx_by_isbn_s,
+};
 
 int alphabetic_priority_author(const void * _book_a, const void * _book_b);
 int alphabetic_priority_qsort_s(const void * _a, const void * _b);
@@ -169,7 +189,7 @@ void sort_by_author(Library * library) {
     // get how many books are under each author's name
     for(unsigned int i = 0; i < am_idx; i++) {
         char * author = authors_multiple[i];
-        unsigned int start_idx = get_idx_by_value(books, num_books, author, AUTHOR); // only works if sorted by author AND if get_idx_by_value() returns the first instance of value
+        unsigned int start_idx = get_by[AUTHOR](library, author); // only works if sorted by author AND if get_idx_by_value() returns the first instance of value
 
         unsigned int j = 1;
         char * next_author = books[start_idx + j]->author;
@@ -206,7 +226,7 @@ void sort_by_author(Library * library) {
 
         for(unsigned int j = 0; j < num_titles; j++) {
             char * title = title_buf[j];
-            unsigned int current_title_idx = get_idx_by_value(books, num_books, title, TITLE);
+            unsigned int current_title_idx = get_by[TITLE](library, title);
             unsigned int new_title_idx = start_idx + j;
 
             Book * tmp = books[current_title_idx];
@@ -301,7 +321,7 @@ void apply_collections(Library * library) {
         Collection c = *(collections[i]);
         char * first_title = c.titles[0];
 
-        int potential_first_title_idx = get_idx_by_value(books, num_books, first_title, TITLE);
+        int potential_first_title_idx = get_by[TITLE](library, first_title);
         if(potential_first_title_idx < 0) {
             printf("Somethign is wrong with the collection; couldn't find %d %s!\n", TITLE, first_title);
             exit(67);
@@ -312,7 +332,7 @@ void apply_collections(Library * library) {
 
         // now, re-sort all the author's titles
         char * author = books[first_title_idx]->author;
-        unsigned int author_start_idx = get_idx_by_value(books, num_books, author, AUTHOR); // no error checking
+        unsigned int author_start_idx = get_by[AUTHOR](library, author); // no error checking
 
         // get author span
         unsigned int span = 1;
@@ -414,7 +434,7 @@ void apply_collections(Library * library) {
         // deep copy the data from books in the order listed in the (properly sorted) collected_titles
         for(unsigned int j = 0; j < span; j++) {
             char * title = collected_titles[j];
-            collected_titles_in_book_form[j] = *(books[get_idx_by_value(books, num_books, title, TITLE)]); // DEEP COPY!
+            collected_titles_in_book_form[j] = *(books[get_by[TITLE](library, title)]); // DEEP COPY!
         }
 
         // overwrite books with the properly sorted books
@@ -571,64 +591,131 @@ bool string_is_member(char ** values, unsigned int num_values, char * value) {
     return false;
 }
 
-char * make_lowercase_string(char * string);
-// get the index of a book by one of its values
-// get the index of the book titled "Being and Time":
-// get_idx_by_value(library, num_books, "Being and Time", TITLE);
-int get_idx_by_value(Book ** library, unsigned int num_books, char * value, BookField field) {
-    for(unsigned int i = 0; i < num_books; i++) {
-        Book b = *(library[i]);
-        char * comp;
+char * make_lowercase_string(const char * string);
 
-        // there seems to be not a good way to get around this...
-        switch(field) {
-            case TITLE: {
-                comp = b.title;
-                break;
-            }
-            case AUTHOR: {
-                comp = b.author;
-                break;
-            }
-            case CONTRIBUTOR: {
-                comp = b.contributor;
-                break;
-            }
-            case SUBJECT: {
-                comp = b.subject;
-                break;
-            }
-            case STATUS: {
-                comp = b.status;
-                break;
-            }
-            case DATE: {
-                comp = b.date;
-                break;
-            }
-            case ISBN_S: {
-                comp = b.isbn_s;
-                break;
-            }
-            default: {
-                printf("You fucked this shit up.\n");
-                exit(69);
-            }
-        }
+int get_idx_by_title(Library * library, const char * title) {
+    char * comp = malloc(strlen(title) + 1);
+    memset(comp, 0, strlen(title) + 1);
+    memcpy(comp, make_lowercase_string(title), strlen(title));
+    size_t strlen_comp = strlen(comp);
 
-        char * lowercase_value = malloc(strlen(value) + 1);
-        memset(lowercase_value, 0, strlen(value) + 1);
-        memcpy(lowercase_value, make_lowercase_string(value), strlen(value) + 1);
-
-        comp = make_lowercase_string(comp);
-        
-        if(strncmp(comp, lowercase_value, strlen(lowercase_value)) == 0) {
-            free(lowercase_value);
+    for(unsigned int i = 0; i < library->num_books; i++) {
+        Book b = *(library->books[i]);
+        if(strncmp(comp, make_lowercase_string(b.title), strlen_comp) == 0) {
+            free(comp);
             return i;
         }
-
-        free(lowercase_value);
     }
+
+    free(comp);
+    return -1;
+}
+
+int get_idx_by_author(Library * library, const char * author) {
+    char * comp = malloc(strlen(author) + 1);
+    memset(comp, 0, strlen(author) + 1);
+    memcpy(comp, make_lowercase_string(author), strlen(author));
+    size_t strlen_comp = strlen(comp);
+
+    for(unsigned int i = 0; i < library->num_books; i++) {
+        Book b = *(library->books[i]);
+        if(strncmp(comp, make_lowercase_string(b.author), strlen_comp) == 0) {
+            free(comp);
+            return i;
+        }
+    }
+
+    free(comp);
+    return -1;
+}
+
+int get_idx_by_contributor(Library * library, const char * contributor) {
+    char * comp = malloc(strlen(contributor) + 1);
+    memset(comp, 0, strlen(contributor) + 1);
+    memcpy(comp, make_lowercase_string(contributor), strlen(contributor));
+    size_t strlen_comp = strlen(comp);
+
+    for(unsigned int i = 0; i < library->num_books; i++) {
+        Book b = *(library->books[i]);
+        if(strncmp(comp, make_lowercase_string(b.contributor), strlen_comp) == 0) {
+            free(comp);
+            return i;
+        }
+    }
+
+    free(comp);
+    return -1;
+}
+
+int get_idx_by_subject(Library * library, const char * subject) {
+    char * comp = malloc(strlen(subject) + 1);
+    memset(comp, 0, strlen(subject) + 1);
+    memcpy(comp, make_lowercase_string(subject), strlen(subject));
+    size_t strlen_comp = strlen(comp);
+
+    for(unsigned int i = 0; i < library->num_books; i++) {
+        Book b = *(library->books[i]);
+        if(strncmp(comp, make_lowercase_string(b.subject), strlen_comp) == 0) {
+            free(comp);
+            return i;
+        }
+    }
+
+    free(comp);
+    return -1;
+}
+
+int get_idx_by_status(Library * library, const char * status) {
+    char * comp = malloc(strlen(status) + 1);
+    memset(comp, 0, strlen(status) + 1);
+    memcpy(comp, make_lowercase_string(status), strlen(status));
+    size_t strlen_comp = strlen(comp);
+
+    for(unsigned int i = 0; i < library->num_books; i++) {
+        Book b = *(library->books[i]);
+        if(strncmp(comp, make_lowercase_string(b.status), strlen_comp) == 0) {
+            free(comp);
+            return i;
+        }
+    }
+
+    free(comp);
+    return -1;
+}
+
+int get_idx_by_date(Library * library, const char * date) {
+    char * comp = malloc(strlen(date) + 1);
+    memset(comp, 0, strlen(date) + 1);
+    memcpy(comp, make_lowercase_string(date), strlen(date));
+    size_t strlen_comp = strlen(comp);
+
+    for(unsigned int i = 0; i < library->num_books; i++) {
+        Book b = *(library->books[i]);
+        if(strncmp(comp, make_lowercase_string(b.date), strlen_comp) == 0) {
+            free(comp);
+            return i;
+        }
+    }
+
+    free(comp);
+    return -1;
+}
+
+int get_idx_by_isbn_s(Library * library, const char * isbn_s) {
+    char * comp = malloc(strlen(isbn_s) + 1);
+    memset(comp, 0, strlen(isbn_s) + 1);
+    memcpy(comp, make_lowercase_string(isbn_s), strlen(isbn_s));
+    size_t strlen_comp = strlen(comp);
+
+    for(unsigned int i = 0; i < library->num_books; i++) {
+        Book b = *(library->books[i]);
+        if(strncmp(comp, make_lowercase_string(b.isbn_s), strlen_comp) == 0) {
+            free(comp);
+            return i;
+        }
+    }
+
+    free(comp);
     return -1;
 }
 
@@ -642,7 +729,7 @@ int alphabetic_priority_qsort_s(const void * _a, const void * _b) {
 // turns all capitals into lowercase
 // "Being And Time" -> "being and time"
 // this is NOT sanitize_title()
-char * make_lowercase_string(char * string) {
+char * make_lowercase_string(const char * string) {
     static char output_buf[256];
     memset(output_buf, 0, 256);
     unsigned int output_buf_idx = 0;
