@@ -53,8 +53,6 @@ typedef struct {
 //----------------------------
 // forward declarations for primary functions
 
-typedef int (*book_field_getter)(Library *, const char *);
-
 int get_idx_by_title(Library * library, const char * title);
 int get_idx_by_author(Library * library, const char * author);
 int get_idx_by_contributor(Library * library, const char * contributor);
@@ -63,6 +61,7 @@ int get_idx_by_status(Library * library, const char * status);
 int get_idx_by_date(Library * library, const char * date);
 int get_idx_by_isbn_s(Library * library, const char * isbn_s);
 
+typedef int (*book_field_getter)(Library *, const char *);
 const book_field_getter get_by[] = {
     [TITLE] = get_idx_by_title,
     [AUTHOR] = get_idx_by_author,
@@ -76,12 +75,12 @@ const book_field_getter get_by[] = {
 //----------------------------
 
 char * verify_header(FILE * input_file);
-Book * get_book_from_line(char * line);
+Book * get_book_from_line(const char * line);
 int alphabetic_priority_author(const void * _book_a, const void * _book_b);
 int alphabetic_priority_title(const void * _book_a, const void * _book_b);
 int alphabetic_priority_qsort_s(const void * _a, const void * _b);
-bool string_is_member(char ** values, unsigned int num_values, char * value);
-int get_idx_by_value(Book ** library, unsigned int num_books, char * value, BookField field);
+bool string_is_member(const char ** values, unsigned int num_values, const char * value);
+int get_idx_by_value(Book ** library, unsigned int num_books, const char * value, BookField field);
 
 //------------------------------------------------------------------------------
 // primary functions - stuff that gets called directly in main()
@@ -182,7 +181,7 @@ void sort_by_author(Library * library) {
     for(unsigned int i = 1; i < library->num_books; i++) {
         last_author = library->books[i - 1]->author;
         if(strncmp(last_author, library->books[i]->author, strlen(last_author)) == 0) {
-            if(!string_is_member(authors_multiple, am_idx, last_author)) {
+            if(!string_is_member((const char **) authors_multiple, am_idx, last_author)) {
                 authors_multiple[am_idx] = last_author;
                 am_idx++;
             }
@@ -406,10 +405,10 @@ char * verify_header(FILE * input_file) {
 
 // parse each line of the input file
 // this will not work on the first (header) line
-Book * get_book_from_line(char * line) {
+Book * get_book_from_line(const char * line) {
     Book * output = malloc(sizeof(Book));
 
-    char * token = sanitize_data(strtok(line, "\t"));
+    char * token = sanitize_data(strtok((char *) line, "\t"));
     output->title = malloc(strlen(token) + 1);
     memcpy(output->title, token, strlen(token) + 1);
 
@@ -535,7 +534,7 @@ char * sanitize_data(char * value) {
 }
 
 // python: "if value in values"
-bool string_is_member(char ** values, unsigned int num_values, char * value) {
+bool string_is_member(const char ** values, unsigned int num_values, const char * value) {
     for(unsigned int i = 0; i < num_values; i++) {
         if(strncmp(values[i], value, strlen(value)) == 0) return true;
     }
