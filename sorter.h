@@ -385,6 +385,32 @@ void do_output(Library library, FILE * output_file, OutputFormat output_format) 
     }
 }
 
+//----------------------------
+
+void destroy_library(Library library) {
+    // free collections
+    for(unsigned int i = 0; i < library.num_collections; i++) {
+        for(unsigned int j = 0; j < library.collections[i]->num_titles; j++) {
+            free(library.collections[i]->titles[j]);
+        }
+        free(library.collections[i]->titles);
+        free(library.collections[i]);
+    }
+
+    // free books
+    for(unsigned int i = 0; i < library.num_books; i++) {
+        free(library.books[i]->author);
+        free(library.books[i]->contributor);
+        free(library.books[i]->date);
+        free(library.books[i]->isbn_s);
+        free(library.books[i]->status);
+        free(library.books[i]->subject);
+        free(library.books[i]->title);
+        free(library.books[i]);
+    }
+    free(library.books);
+}
+
 //------------------------------------------------------------------------------
 // secondary functions - not directly called by main()
 

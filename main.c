@@ -18,5 +18,7 @@ int main(int argv, char ** argc) {
 
     do_output(library, files.output_file, files.output_format);
 
+    destroy_library(library);
+
     return 0;
 }
