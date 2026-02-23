@@ -92,7 +92,7 @@ struct parse_args_ret_t parse_args(int argc, char ** argv) {
     static struct parse_args_ret_t output = { 0 };
     
     if(argc < 2) {
-        printf("USAGE:\nsort <required: input filename> <optional: output filename>\n\n");
+        printf("USAGE:\nsort <required: input filename> <optional: output filename>\nIf no filename is given, output will be to stdout (OUTPUT_STDOUT).\nIf a filename matching \"web.html\" if given, then it will output in the format necessary for wrzeczak.net (OUTPUT_WEBSITE).\nIf another filename ending in \".html\" is given, it will output in a nicely formatted HTML table (OUTPUT_HTML).\nIf any other filename is given, it will output in tab-delimited text format (OUTPUT_TXT).\n\n");
         exit(1);
     }
 
@@ -109,7 +109,8 @@ struct parse_args_ret_t parse_args(int argc, char ** argv) {
 typedef enum {
     OUTPUT_STDOUT = 0,
     OUTPUT_TXT,
-    OUTPUT_HTML
+    OUTPUT_HTML,
+    OUTPUT_WEBSITE // for wrzeczak.net's bookshelf page
 } OutputFormat;
 
 struct open_files_ret_t {
@@ -129,7 +130,10 @@ struct open_files_ret_t open_files(struct parse_args_ret_t args) {
     } else {
         output.output_file = fopen(args.output_filename, "w");
         size_t output_filename_len = strlen(args.output_filename);
-        if(strncmp(".html", args.output_filename + (output_filename_len - 5), strlen(".html")) == 0) output.output_format = OUTPUT_HTML;
+        if(strncmp(".html", args.output_filename + (output_filename_len - 5), strlen(".html")) == 0) {
+            if(strncmp("web.html", args.output_filename, strlen("web.html")) == 0) output.output_format = OUTPUT_WEBSITE;
+            else output.output_format = OUTPUT_HTML;
+        }
         else output.output_format = OUTPUT_TXT;
     }
 
@@ -351,8 +355,12 @@ void apply_collections(Library * library) {
 
 void do_output(Library library, FILE * output_file, OutputFormat output_format) {
     const char * txt_format_str = "%3d: %-*s %s\n";
+
     const char * html_preamble = "<style>\n\tbody {\n\t\tcolor: white;\n\t\tbackground-color: #222;\n\t}\n</style>\n\n<table style=\"width: 100%%;\">\n\t<tr>\n\t\t<th>NUMBER</th>\n\t\t<th>TITLE</th>\n\t\t<th>AUTHOR</th>\n\t</tr>\n";
     const char * html_format_str = "\t<tr>\n\t\t<td>%d</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t</tr>\n";
+
+    const char * website_format_str = "<tr><td>%s</td><td>%s</td></tr>";
+    const char * website_preamble = "<table style=\"width: 100%%;\"><tr><th>TITLE</th><th>AUTHOR</th></tr> ";
     
     size_t longest_title_length = 0;
     for(unsigned int i = 0; i < library.num_books; i++) {
@@ -379,6 +387,13 @@ void do_output(Library library, FILE * output_file, OutputFormat output_format) 
             fprintf(output_file, html_preamble);
             for(unsigned int i = 0; i < library.num_books; i++) {
                 fprintf(output_file, html_format_str, i + 1, library.books[i]->title, library.books[i]->author);
+            }
+            break;
+        }
+        case OUTPUT_WEBSITE: {
+            fprintf(output_file, website_preamble);
+            for(unsigned int i = 0; i < library.num_books; i++) {
+                fprintf(output_file, website_format_str, library.books[i]->title, library.books[i]->author);
             }
             break;
         }
