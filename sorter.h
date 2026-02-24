@@ -131,7 +131,7 @@ struct open_files_ret_t open_files(struct parse_args_ret_t args) {
         output.output_file = fopen(args.output_filename, "w");
         size_t output_filename_len = strlen(args.output_filename);
         if(strncmp(".html", args.output_filename + (output_filename_len - 5), strlen(".html")) == 0) {
-            if(strncmp("web.html", args.output_filename, strlen("web.html")) == 0) output.output_format = OUTPUT_WEBSITE;
+            if(strncmp("web", args.output_filename, strlen("web")) == 0) output.output_format = OUTPUT_WEBSITE;
             else output.output_format = OUTPUT_HTML;
         }
         else output.output_format = OUTPUT_TXT;
