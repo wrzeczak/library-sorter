@@ -621,120 +621,106 @@ bool str_equal(const char * str1, const char * str2) {
 // Library getter implementations
 
 int get_idx_by_title(Library * library, const char * title) {
-    char * comp = malloc(strlen(title) + 1);
+    char comp[strlen(title) + 1];
     memset(comp, 0, strlen(title) + 1);
     memcpy(comp, make_lowercase_string(title), strlen(title));
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
         if(str_equal(comp, make_lowercase_string(b.title))) {
-            free(comp);
             return i;
         }
     }
 
-    free(comp);
     return -1;
 }
 
 int get_idx_by_author(Library * library, const char * author) {
-    char * comp = malloc(strlen(author) + 1);
+    char comp[strlen(author) + 1];
     memset(comp, 0, strlen(author) + 1);
     memcpy(comp, make_lowercase_string(author), strlen(author));
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
         if(str_equal(comp, make_lowercase_string(b.author))) {
-            free(comp);
             return i;
         }
     }
 
-    free(comp);
     return -1;
 }
 
 int get_idx_by_contributor(Library * library, const char * contributor) {
-    char * comp = malloc(strlen(contributor) + 1);
+    char comp[strlen(contributor) + 1];
     memset(comp, 0, strlen(contributor) + 1);
     memcpy(comp, make_lowercase_string(contributor), strlen(contributor));
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
         if(str_equal(comp, make_lowercase_string(b.contributor))) {
-            free(comp);
             return i;
         }
     }
 
-    free(comp);
     return -1;
 }
 
 int get_idx_by_subject(Library * library, const char * subject) {
-    char * comp = malloc(strlen(subject) + 1);
+    char comp[strlen(subject) + 1];
     memset(comp, 0, strlen(subject) + 1);
     memcpy(comp, make_lowercase_string(subject), strlen(subject));
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
         if(str_equal(comp, make_lowercase_string(b.subject))) {
-            free(comp);
             return i;
         }
     }
 
-    free(comp);
     return -1;
 }
 
 int get_idx_by_status(Library * library, const char * status) {
-    char * comp = malloc(strlen(status) + 1);
+    char comp[strlen(status) + 1];
     memset(comp, 0, strlen(status) + 1);
     memcpy(comp, make_lowercase_string(status), strlen(status));
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
         if(str_equal(comp, make_lowercase_string(b.status))) {
-            free(comp);
             return i;
         }
     }
 
-    free(comp);
     return -1;
 }
 
 int get_idx_by_date(Library * library, const char * date) {
-    char * comp = malloc(strlen(date) + 1);
+    char comp[strlen(date) + 1];
     memset(comp, 0, strlen(date) + 1);
     memcpy(comp, make_lowercase_string(date), strlen(date));
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
         if(str_equal(comp, make_lowercase_string(b.date))) {
-            free(comp);
             return i;
         }
     }
 
-    free(comp);
     return -1;
 }
 
 int get_idx_by_isbn_s(Library * library, const char * isbn_s) {
-    char * comp = malloc(strlen(isbn_s) + 1);
+    char comp[strlen(isbn_s) + 1];
     memset(comp, 0, strlen(isbn_s) + 1);
     memcpy(comp, make_lowercase_string(isbn_s), strlen(isbn_s));
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
         if(str_equal(comp, make_lowercase_string(b.isbn_s))) {
-            free(comp);
             return i;
         }
     }
 
-    free(comp);
     return -1;
 }
