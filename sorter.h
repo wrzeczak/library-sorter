@@ -79,6 +79,7 @@ int alphabetic_priority_title(const void * _book_a, const void * _book_b);
 int alphabetic_priority_qsort_s(const void * _a, const void * _b);
 bool string_is_member(const char ** values, unsigned int num_values, const char * value);
 int get_idx_by_value(Book ** library, unsigned int num_books, const char * value, BookField field);
+bool str_equal(const char * str1, const char * str2); // boolean wrapper for strcmp()
 
 //------------------------------------------------------------------------------
 // primary functions - stuff that gets called directly in main()
@@ -130,6 +131,7 @@ struct open_files_ret_t open_files(struct parse_args_ret_t args) {
     } else {
         output.output_file = fopen(args.output_filename, "w");
         size_t output_filename_len = strlen(args.output_filename);
+        // here i actually need strncmp for slicing strings
         if(strncmp(".html", args.output_filename + (output_filename_len - 5), strlen(".html")) == 0) {
             if(strncmp("web", args.output_filename, strlen("web")) == 0) output.output_format = OUTPUT_WEBSITE;
             else output.output_format = OUTPUT_HTML;
@@ -186,7 +188,7 @@ void sort_by_author(Library * library) {
     char * last_author = NULL;
     for(unsigned int i = 1; i < library->num_books; i++) {
         last_author = library->books[i - 1]->author;
-        if(strncmp(last_author, library->books[i]->author, strlen(last_author)) == 0) {
+        if(str_equal(last_author, library->books[i]->author)) {
             if(!string_is_member((const char **) authors_multiple, am_idx, last_author)) {
                 authors_multiple[am_idx] = last_author;
                 am_idx++;
@@ -206,7 +208,7 @@ void sort_by_author(Library * library) {
         unsigned int author_count = 1;
         char * next_author = library->books[start_idx + author_count]->author;
         while(((start_idx + author_count) < library->num_books)
-        && (strncmp(next_author, author, strlen(author)) == 0)) {
+              && (str_equal(next_author, author))) {
             author_count++;
             next_author = library->books[start_idx + author_count]->author;
         }
@@ -280,7 +282,7 @@ void apply_collections(Library * library) {
         // get author span
         unsigned int span = 1;
         char * next_author = books[author_start_idx + span]->author;
-        while(strncmp(next_author, author, strlen(author)) == 0) {
+        while(str_equal(next_author, author)) {
             span++;
             next_author = books[author_start_idx + span]->author;
         }
@@ -297,7 +299,7 @@ void apply_collections(Library * library) {
             bool is_in_collection = false;
 
             for(unsigned int k = 1; k < c.num_titles; k++) { // k = 1 to skip first member of collection
-                if(strncmp(c.titles[k], title, strlen(title)) == 0) is_in_collection = true;
+                if(str_equal(c.titles[k], title)) is_in_collection = true;
             }
 
             if(!is_in_collection) {
@@ -312,7 +314,7 @@ void apply_collections(Library * library) {
         qsort(noncollected_titles, num_noncollected_titles, sizeof(char *), &alphabetic_priority_qsort_s);
 
         for(unsigned int j = 0; j < num_noncollected_titles; j++) {
-            if(strncmp(noncollected_titles[j], c.titles[0], strlen(c.titles[0])) == 0) {
+            if(str_equal(noncollected_titles[j], c.titles[0])) {
                 num_titles_before = j;
                 num_titles_after = span - num_titles_before - c.num_titles;
             }
@@ -447,7 +449,7 @@ char * verify_header(FILE * input_file) {
     memset(line, 0, 256);
     fgets(line, 256, input_file);
 
-    if(strncmp(line, EXPECTED_HEADER, strlen(line)) != 0) {
+    if(!str_equal(line, EXPECTED_HEADER)) {
         return line;
     } else return NULL;
 }
@@ -540,8 +542,8 @@ char * sanitize_title(const char * title) {
     size_t beginning_offset = 0;
     // i LOVE macros for eliminating redundant code
     // this could NEVER go wrong <3
-    #define OFFSET(str) if(strncmp(title, str, strlen(str)) == 0) beginning_offset = strlen(str)
-
+    #define OFFSET(str) if(str_equal(title, str)) beginning_offset = strlen(str)
+    
     OFFSET("The ");
     OFFSET("An ");
     OFFSET("On ");
@@ -585,7 +587,7 @@ char * sanitize_data(char * value) {
 // python: "if value in values"
 bool string_is_member(const char ** values, unsigned int num_values, const char * value) {
     for(unsigned int i = 0; i < num_values; i++) {
-        if(strncmp(values[i], value, strlen(value)) == 0) return true;
+        if(str_equal(values[i], value)) return true;
     }
     return false;
 }
@@ -610,16 +612,22 @@ char * make_lowercase_string(const char * string) {
     return output_buf;
 }
 
+// boolean wrapper for strcmp()
+bool str_equal(const char * str1, const char * str2) {
+    return (strcmp(str1, str2) == 0);
+}
+
+//----------------------------
+// Library getter implementations
 
 int get_idx_by_title(Library * library, const char * title) {
     char * comp = malloc(strlen(title) + 1);
     memset(comp, 0, strlen(title) + 1);
     memcpy(comp, make_lowercase_string(title), strlen(title));
-    size_t strlen_comp = strlen(comp);
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
-        if(strncmp(comp, make_lowercase_string(b.title), strlen_comp) == 0) {
+        if(str_equal(comp, make_lowercase_string(b.title))) {
             free(comp);
             return i;
         }
@@ -633,11 +641,10 @@ int get_idx_by_author(Library * library, const char * author) {
     char * comp = malloc(strlen(author) + 1);
     memset(comp, 0, strlen(author) + 1);
     memcpy(comp, make_lowercase_string(author), strlen(author));
-    size_t strlen_comp = strlen(comp);
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
-        if(strncmp(comp, make_lowercase_string(b.author), strlen_comp) == 0) {
+        if(str_equal(comp, make_lowercase_string(b.author))) {
             free(comp);
             return i;
         }
@@ -651,11 +658,10 @@ int get_idx_by_contributor(Library * library, const char * contributor) {
     char * comp = malloc(strlen(contributor) + 1);
     memset(comp, 0, strlen(contributor) + 1);
     memcpy(comp, make_lowercase_string(contributor), strlen(contributor));
-    size_t strlen_comp = strlen(comp);
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
-        if(strncmp(comp, make_lowercase_string(b.contributor), strlen_comp) == 0) {
+        if(str_equal(comp, make_lowercase_string(b.contributor))) {
             free(comp);
             return i;
         }
@@ -669,11 +675,10 @@ int get_idx_by_subject(Library * library, const char * subject) {
     char * comp = malloc(strlen(subject) + 1);
     memset(comp, 0, strlen(subject) + 1);
     memcpy(comp, make_lowercase_string(subject), strlen(subject));
-    size_t strlen_comp = strlen(comp);
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
-        if(strncmp(comp, make_lowercase_string(b.subject), strlen_comp) == 0) {
+        if(str_equal(comp, make_lowercase_string(b.subject))) {
             free(comp);
             return i;
         }
@@ -687,11 +692,10 @@ int get_idx_by_status(Library * library, const char * status) {
     char * comp = malloc(strlen(status) + 1);
     memset(comp, 0, strlen(status) + 1);
     memcpy(comp, make_lowercase_string(status), strlen(status));
-    size_t strlen_comp = strlen(comp);
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
-        if(strncmp(comp, make_lowercase_string(b.status), strlen_comp) == 0) {
+        if(str_equal(comp, make_lowercase_string(b.status))) {
             free(comp);
             return i;
         }
@@ -705,11 +709,10 @@ int get_idx_by_date(Library * library, const char * date) {
     char * comp = malloc(strlen(date) + 1);
     memset(comp, 0, strlen(date) + 1);
     memcpy(comp, make_lowercase_string(date), strlen(date));
-    size_t strlen_comp = strlen(comp);
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
-        if(strncmp(comp, make_lowercase_string(b.date), strlen_comp) == 0) {
+        if(str_equal(comp, make_lowercase_string(b.date))) {
             free(comp);
             return i;
         }
@@ -723,11 +726,10 @@ int get_idx_by_isbn_s(Library * library, const char * isbn_s) {
     char * comp = malloc(strlen(isbn_s) + 1);
     memset(comp, 0, strlen(isbn_s) + 1);
     memcpy(comp, make_lowercase_string(isbn_s), strlen(isbn_s));
-    size_t strlen_comp = strlen(comp);
 
     for(unsigned int i = 0; i < library->num_books; i++) {
         Book b = *(library->books[i]);
-        if(strncmp(comp, make_lowercase_string(b.isbn_s), strlen_comp) == 0) {
+        if(str_equal(comp, make_lowercase_string(b.isbn_s))) {
             free(comp);
             return i;
         }
