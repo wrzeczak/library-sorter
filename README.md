@@ -22,15 +22,17 @@ Then, run it on some data:
 > ./sort input.txt output.txt
 ```
 
-The `input.txt` format is determined by Excel; I export from Excel to tab-delimited .txt file (.csv would have been my preferred choice, but this was easier to parse given that I have a lot of datapoints that contain commas). Modifying this would require modifying `EXPECTED_HEADER`, `EXPECTED_NUMBER_OF_FIELDS`, and probably `get_book_from_line()`, and maybe the `Book` struct and `BookField` enums themselves. The order of the input data shouldn't matter for correctness purposes; the `input.txt` provided here is sorted by ISBN number, and it still gives correct results.
+The `input.txt` format is determined by Excel; I export from Excel to tab-delimited .txt file (.csv would have been my preferred choice, but this was easier to parse given that I have a lot of datapoints that contain commas). Modifying this would require modifying `EXPECTED_HEADER`, `EXPECTED_NUMBER_OF_FIELDS`, and probably `get_book_from_line()`, and maybe the `Book` struct and `BookField` enums themselves. The order of the input data shouldn't matter for correctness purposes.
+
+The `output.txt` format is determined by `print_output_and_cleanup_stuff()`; passing a filename that ends with `.html` will automatically output an HTML table. I deliberately squirreled away everything before and after the actual processing of stuff in `main()` into these two (terrible, impure, blah blah blah) functions to make my own maintenance of the program (for the purposes of actually using it) easier. Yes, I could (should) have put all the extra functions and data types and whatnot into a header file, but I also sat down and wrote this in one night, and it does what I want.
 
 You can also run a visualizer that does not send to an output file. You will need [Raylib](https://raylib.com).
 ```terminal
 > gcc -o viewer viewer.c -lraylib
 > ./viewer input.txt
 ```
-
-The `output.txt` format is determined by `print_output_and_cleanup_stuff()`; passing a filename that ends with `.html` will automatically output an HTML table. I deliberately squirreled away everything before and after the actual processing of stuff in `main()` into these two (terrible, impure, blah blah blah) functions to make my own maintenance of the program (for the purposes of actually using it) easier. Yes, I could (should) have put all the extra functions and data types and whatnot into a header file, but I also sat down and wrote this in one night, and it does what I want.
+A sample screenshot:
+![](screenshot000.png)
 
 The `viewer` is configurable to show different amounts of data, and how to color background values. To change what data is shown, modify `COL_WIDTH_PERCENTS`; a `0.0f` means that field won't show. To change the way background values of each field are colored, simply modify the corresponding `colorize_*` function defined at the bottom of the file. 
 
