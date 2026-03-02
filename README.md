@@ -24,7 +24,7 @@ Then, run it on some data:
 
 The `input.txt` format is determined by Excel; I export from Excel to tab-delimited .txt file (.csv would have been my preferred choice, but this was easier to parse given that I have a lot of datapoints that contain commas). Modifying this would require modifying `EXPECTED_HEADER`, `EXPECTED_NUMBER_OF_FIELDS`, and probably `get_book_from_line()`, and maybe the `Book` struct and `BookField` enums themselves. The order of the input data shouldn't matter for correctness purposes.
 
-You can also run a visualizer that does not send to an output file. You will need [Raylib](https://raylib.com).
+You can also run a visualizer that does not send to an output file. You will need [Raylib](https://raylib.com). Press `?` (`SHIFT` + `/`) to view help info.
 ```terminal
 > gcc -o viewer viewer.c -lraylib
 > ./viewer input.txt
