@@ -61,8 +61,8 @@ int get_idx_by_status(Library * library, const char * status);
 int get_idx_by_date(Library * library, const char * date);
 int get_idx_by_isbn_s(Library * library, const char * isbn_s);
 
-typedef int (*book_field_getter)(Library *, const char *);
-const book_field_getter get_by[] = {
+typedef int (*book_field_searcher)(Library *, const char *);
+const book_field_searcher get_by[] = {
     [TITLE] = get_idx_by_title,
     [AUTHOR] = get_idx_by_author,
     [CONTRIBUTOR] = get_idx_by_contributor,
@@ -70,6 +70,25 @@ const book_field_getter get_by[] = {
     [STATUS] = get_idx_by_status,
     [DATE] = get_idx_by_date,
     [ISBN_S] = get_idx_by_isbn_s,
+};
+
+char * get_field_title(Book * book);
+char * get_field_author(Book * book);
+char * get_field_contributor(Book * book);
+char * get_field_subject(Book * book);
+char * get_field_status(Book * book);
+char * get_field_date(Book * book);
+char * get_field_isbn_s(Book * book);
+
+typedef char * (*book_field_getter)(Book *);
+const book_field_getter get_field[] = {
+    [TITLE] = get_field_title,
+    [AUTHOR] = get_field_author,
+    [CONTRIBUTOR] = get_field_contributor,
+    [SUBJECT] = get_field_subject,
+    [STATUS] = get_field_status,
+    [DATE] = get_field_date,
+    [ISBN_S] = get_field_isbn_s
 };
 
 char * verify_header(FILE * input_file);
@@ -618,7 +637,7 @@ bool str_equal(const char * str1, const char * str2) {
 }
 
 //----------------------------
-// Library getter implementations
+// Library searcher implementations
 
 int get_idx_by_title(Library * library, const char * title) {
     char comp[strlen(title) + 1];
@@ -723,4 +742,35 @@ int get_idx_by_isbn_s(Library * library, const char * isbn_s) {
     }
 
     return -1;
+}
+
+//----------------------------
+// Book getter implementations
+
+char * get_field_title(Book * book) {
+    return book->title;
+}
+
+char * get_field_author(Book * book) {
+    return book->author;
+}
+
+char * get_field_contributor(Book * book) {
+    return book->contributor;
+}
+
+char * get_field_subject(Book * book) {
+    return book->subject;
+}
+
+char * get_field_status(Book * book) {
+    return book->status;
+}
+
+char * get_field_date(Book * book) {
+    return book->date;
+}
+
+char * get_field_isbn_s(Book * book) {
+    return book->isbn_s;
 }
